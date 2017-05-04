@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<simpledc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="../schemas/dc.xsd">
+    <title>Sample Files (1 - One Info Package For Each File Or Folder)</title>
+    <identifier>2476576e-cd8d-48f7-b0c4-359ab31e73de</identifier>
+    <creator>Creator</creator>
+    <date>2017-05-01</date>
+    <date>2017-05-05</date>
+    <description>Description</description>
+    <publisher>Publisher</publisher>
+    <contributor>Contributor</contributor>
+    <rights>Rights</rights>
+    <language>English</language>
+    <coverage>Coverage</coverage>
+    <format>Format</format>
+    <relation>Relation</relation>
+    <subject>Subject</subject>
+    <type>Type</type>
+    <source>Source</source>
+</simpledc>
