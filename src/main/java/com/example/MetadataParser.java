@@ -46,7 +46,8 @@ public class MetadataParser {
                 Node archdescAttributeNode = archdescNode.getAttributes().item(i);
 
                 if (archdescAttributeNode.getNodeName().equals("level")) {
-                    System.out.println(".." + archdescNode.getNodeName() + " level: " + archdescAttributeNode.getChildNodes().item(0).getNodeValue());
+                    System.out.println(".." + archdescNode.getNodeName() + " level: " + archdescAttributeNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
             }
 
@@ -63,37 +64,44 @@ public class MetadataParser {
                 Node didNodeChild = didNodeChildren.item(i);
 
                 if (didNodeChild.getNodeName().equals("unittitle")) {
-                    System.out.println("....unittitle: " + didNodeChild.getChildNodes().item(0).getNodeValue());
+                    System.out.println("....unittitle: " + didNodeChild.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (didNodeChild.getNodeName().equals("unitid")) {
-                    System.out.println("....unitid: " + didNodeChild.getChildNodes().item(0).getNodeValue());
+                    System.out.println("....unitid: " + didNodeChild.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
 
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
                         Node unitidNode = didNodeChild.getAttributes().item(j);
 
                         if (unitidNode.getNodeName().equals("countrycode")) {
-                            System.out.println("....unitid countrycode: " + unitidNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....unitid countrycode: " + unitidNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (unitidNode.getNodeName().equals("repositorycode")) {
-                            System.out.println("....unitid repositorycode: " + unitidNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....unitid repositorycode: " + unitidNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
                 }
 
                 if (didNodeChild.getNodeName().equals("unitdate")) {
-                    System.out.println("....unitdate: " + didNodeChild.getChildNodes().item(0).getNodeValue());
+                    System.out.println("....unitdate: " + didNodeChild.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
 
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
                         Node unitidNode = didNodeChild.getAttributes().item(j);
 
                         if (unitidNode.getNodeName().equals("label")) {
-                            System.out.println("....unitdate label: " + unitidNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....unitdate label: " + unitidNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (unitidNode.getNodeName().equals("normal")) {
-                            System.out.println("....unitdate normal: " + unitidNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....unitdate normal: " + unitidNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
                 }
@@ -102,15 +110,18 @@ public class MetadataParser {
                         Node physdescChildNode = didNodeChild.getChildNodes().item(j);
 
                         if (physdescChildNode.getNodeName().equals("extent")) {
-                            System.out.println("....physdesc extent: " + physdescChildNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....physdesc extent: " + physdescChildNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (physdescChildNode.getNodeName().equals("dimensions")) {
-                            System.out.println("....physdesc dimensions: " + physdescChildNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....physdesc dimensions: " + physdescChildNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (physdescChildNode.getNodeName().equals("physfacet")) {
-                            System.out.println("....physdesc physfacet: " + physdescChildNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....physdesc physfacet: " + physdescChildNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (physdescChildNode.getNodeName().equals("#text")) {
@@ -123,13 +134,12 @@ public class MetadataParser {
                 }
 
                 if (didNodeChild.getNodeName().equals("repository")) {
-                    System.out.println("....repository");
-
                     for (int j = 0; j < didNodeChild.getChildNodes().getLength(); j++) {
                         Node repositoryChildNode = didNodeChild.getChildNodes().item(j);
 
                         if (repositoryChildNode.getNodeName().equals("corpname")) {
-                            System.out.println("....repository corpname: " + repositoryChildNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....repository corpname: " + repositoryChildNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
                 }
@@ -139,7 +149,8 @@ public class MetadataParser {
                         Node langmaterialChildNode = didNodeChild.getChildNodes().item(j);
 
                         if (langmaterialChildNode.getNodeName().equals("language")) {
-                            System.out.println("....langmaterial language: " + langmaterialChildNode.getChildNodes().item(0).getNodeValue());
+                            System.out.println("....langmaterial language: " + langmaterialChildNode.getChildNodes().item(0)
+                                    .getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (langmaterialChildNode.getNodeName().equals("#text")) {
@@ -151,17 +162,17 @@ public class MetadataParser {
                     }
                 }
                 if (didNodeChild.getNodeName().equals("note")) {
-                    System.out.println("....note");
-
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
                         Node noteNode = didNodeChild.getAttributes().item(j);
 
                         if (noteNode.getNodeValue().equals("sourcesDescription")) {
-                            System.out.println("....note sourcesDescription: " + didNodeChild.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("....note sourcesDescription: " + didNodeChild.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (noteNode.getNodeValue().equals("generalNote")) {
-                            System.out.println("....note generalNote: " + didNodeChild.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("....note generalNote: " + didNodeChild.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
                 }
@@ -176,17 +187,20 @@ public class MetadataParser {
                         Node originationNode = didNodeChild.getAttributes().item(j);
 
                         if (originationNode.getNodeValue().equals("creator")) {
-                            System.out.println("....origination creator: " + didNodeChild.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("....origination creator: " + didNodeChild.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (originationNode.getNodeValue().equals("producer")) {
-                            System.out.println("....origination producer: " + didNodeChild.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("....origination producer: " + didNodeChild.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
                 }
 
                 if (didNodeChild.getNodeName().equals("materialspec")) {
-                    System.out.println("....materialspec: " + didNodeChild.getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                    System.out.println("....materialspec: " + didNodeChild.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
             }
 
@@ -200,42 +214,98 @@ public class MetadataParser {
                         Node oddAttributeNode = archdescChildNode.getAttributes().item(j);
 
                         if (oddAttributeNode.getNodeValue().equals("levelOfDetail")) {
-                            System.out.println("..odd levelOfDetail: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("..odd levelOfDetail: " + archdescChildNode.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
 
                         if (oddAttributeNode.getNodeValue().equals("statusDescription")) {
-                            System.out.println("..odd statusDescription: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                            System.out.println("..odd statusDescription: " + archdescChildNode.getChildNodes().item(1)
+                                    .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
                         }
                     }
 
                 }
 
                 if (archdescChildNode.getNodeName().equals("scopecontent")) {
-                    System.out.println("..scopecontent: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..scopecontent: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (archdescChildNode.getNodeName().equals("arrangement")) {
-                    System.out.println("..arrangement: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..arrangement: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (archdescChildNode.getNodeName().equals("appraisal")) {
-                    System.out.println("..appraisal: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..appraisal: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (archdescChildNode.getNodeName().equals("acqinfo")) {
-                    System.out.println("..acqinfo: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..acqinfo: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (archdescChildNode.getNodeName().equals("accruals")) {
-                    System.out.println("..accruals: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..accruals: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
                 if (archdescChildNode.getNodeName().equals("custodhist")) {
-                    System.out.println("..custodhist: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0).getNodeValue());
+                    System.out.println("..custodhist: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
                 }
 
-            }
+                if (archdescChildNode.getNodeName().equals("processinfo")) {
+                    System.out.println("..processinfo: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(1)
+                            .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                }
 
+                if (archdescChildNode.getNodeName().equals("originalsloc")) {
+                    System.out.println("..originalsloc: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("altformavail")) {
+                    System.out.println("..altformavail: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("relatedmaterial")) {
+                    System.out.println("..relatedmaterial: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("accessrestrict")) {
+                    System.out.println("..accessrestrict: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("userestrict")) {
+                    System.out.println("..userestrict: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("otherfindaid")) {
+                    System.out.println("..otherfindaid: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("phystech")) {
+                    System.out.println("..phystech: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("bibliography")) {
+                    System.out.println("..bibliography: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (archdescChildNode.getNodeName().equals("prefercite")) {
+                    System.out.println("..prefercite: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+            }
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -262,6 +332,91 @@ public class MetadataParser {
             System.out.println("Dublin Core Simple 2002-12-12 Parser");
             System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("Root element: " + rootElement);
+
+            // *********************************************************************************************************
+            //simpledc root element
+            System.out.println(rootElement);
+
+            for (int i = 0; i < doc.getDocumentElement().getChildNodes().getLength(); i++) {
+                Node simpledcNode = doc.getDocumentElement().getChildNodes().item(i);
+
+                if (simpledcNode.getNodeName().equals("title")) {
+                    System.out.println("..title: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("identifier")) {
+                    System.out.println("..identifier: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("creator")) {
+                    System.out.println("..creator: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("date")) {
+                    System.out.println("..date: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("description")) {
+                    System.out.println("..description: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("publisher")) {
+                    System.out.println("..publisher: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("contributor")) {
+                    System.out.println("..contributor: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("rights")) {
+                    System.out.println("..rights: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("language")) {
+                    System.out.println("..language: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("coverage")) {
+                    System.out.println("..coverage: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("format")) {
+                    System.out.println("..format: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("relation")) {
+                    System.out.println("..relation: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("subject")) {
+                    System.out.println("..subject: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("type")) {
+                    System.out.println("..type: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+
+                if (simpledcNode.getNodeName().equals("source")) {
+                    System.out.println("..source: " + simpledcNode.getChildNodes().item(0)
+                            .getNodeValue().replaceAll("\\n", "").trim());
+                }
+            }
+
+
         } catch (NullPointerException e) {
             System.out.println("XML file '" + file.getName() + "' not found.");
         } catch (ParserConfigurationException e) {
@@ -289,6 +444,39 @@ public class MetadataParser {
             System.out.println("Key-value Parser");
             System.out.println("---------------------------------------------------------------------------------------");
             System.out.println("Root element: " + rootElement);
+
+            // *********************************************************************************************************
+            //metadata root element
+            System.out.println(rootElement);
+
+            for (int i = 0; i < doc.getDocumentElement().getChildNodes().getLength(); i++) {
+                Node metadataNode = doc.getDocumentElement().getChildNodes().item(i);
+
+                if (metadataNode.getNodeName().equals("field")) {
+
+                    if (metadataNode.getAttributes().item(0).getNodeValue().equals("id")) {
+                        System.out.println("..field id: " + metadataNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                    }
+
+                    if (metadataNode.getAttributes().item(0).getNodeValue().equals("title")) {
+                        System.out.println("..field title: " + metadataNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                    }
+
+                    if (metadataNode.getAttributes().item(0).getNodeValue().equals("producer")) {
+                        System.out.println("..field producer: " + metadataNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                    }
+
+                    if (metadataNode.getAttributes().item(0).getNodeValue().equals("date")) {
+                        System.out.println("..field date: " + metadataNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                    }
+                }
+
+            }
+
         } catch (NullPointerException e) {
             System.out.println("XML file '" + file.getName() + "' not found.");
         } catch (ParserConfigurationException e) {

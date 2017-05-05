@@ -2,9 +2,7 @@ package com.example;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.File;
-
 
 /**
  * Main class.
@@ -31,23 +29,23 @@ public class Main {
             System.out.println("XML EAD 2002 file not found.");
         }
 
-//        //Parse Dublin Core Simple 2002-12-12 File
-//        //Get file from resources folder
-//        try {
-//            File dcSimpleDC20021212File = new File(classLoader.getResource("dc_SimpleDC20021212.xml").getFile());
-//            metadataParser.parseDublinCoreSimple20021212(dcSimpleDC20021212File);
-//        } catch (NullPointerException e) {
-//            System.out.println("XML Dublin Core Simple 2002-12-12 file not found.");
-//        }
-//
-//        //Parse Key-value File
-//        //Get file from resources folder
-//        try {
-//            File keyValueFile = new File(classLoader.getResource("key-value.xml").getFile());
-//            metadataParser.parseKeyValue(keyValueFile);
-//        } catch (NullPointerException e) {
-//            System.out.println("XML Key-value file not found.");
-//        }
+        //Parse Dublin Core Simple 2002-12-12 File
+        //Get file from resources folder
+        try {
+            File dcSimpleDC20021212File = new File(classLoader.getResource("dc_SimpleDC20021212.xml").getFile());
+            metadataParser.parseDublinCoreSimple20021212(dcSimpleDC20021212File);
+        } catch (NullPointerException e) {
+            System.out.println("XML Dublin Core Simple 2002-12-12 file not found.");
+        }
+
+        //Parse Key-value File
+        //Get file from resources folder
+        try {
+            File keyValueFile = new File(classLoader.getResource("key-value.xml").getFile());
+            metadataParser.parseKeyValue(keyValueFile);
+        } catch (NullPointerException e) {
+            System.out.println("XML Key-value file not found.");
+        }
 
     }
 
