@@ -266,8 +266,22 @@ public class MetadataParser {
                 }
 
                 if (archdescChildNodeName.equals("processinfo")) {
-                    System.out.println("..processinfo: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(1)
-                            .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                    for (int j = 0; j < archdescChildNode.getChildNodes().getLength(); j++) {
+                        Node processinfoNode = archdescChildNode.getChildNodes().item(j);
+                        if (processinfoNode.getChildNodes().getLength() > 0) {
+                            if ((processinfoNode.getChildNodes().item(0) != null) &&
+                                    processinfoNode.getChildNodes().item(0).getNodeName().equals("date")) {
+                                System.out.println("..processinfo date: " + processinfoNode.getChildNodes().item(0).getChildNodes().item(0)
+                                        .getNodeValue().replaceAll("\\n", "").trim());
+                            } else if ((processinfoNode.getChildNodes().item(1) != null) &&
+                                    processinfoNode.getChildNodes().item(1).getNodeName().equals("date")) {
+                                System.out.println("..processinfo date: " + processinfoNode.getChildNodes().item(1).getChildNodes().item(0)
+                                        .getNodeValue().replaceAll("\\n", "").trim());
+                            } else {
+                                System.out.println("..processinfo archivist notes: " + processinfoNode.getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            }
+                        }
+                    }
                 }
 
                 if (archdescChildNodeName.equals("originalsloc")) {
