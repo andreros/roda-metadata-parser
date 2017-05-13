@@ -25,7 +25,10 @@ public class MetadataParser {
      * Method responsible for parsing an XML metadata file in the EAD2002 format.
      * @param file The filename of the file to be parsed.
      */
-    public void parseEAD2002(File file) {
+    public Ead2002Metadata parseEAD2002(File file) {
+
+        Ead2002Metadata ead2002Metadata = new Ead2002Metadata();
+
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -33,28 +36,29 @@ public class MetadataParser {
             doc.getDocumentElement().normalize();
 
             String rootElement = doc.getDocumentElement().getNodeName();
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("EAD2002 Parser");
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println(rootElement);
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println("EAD2002 Parser");
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println(rootElement);
 
             // *********************************************************************************************************
             //archdesc element
             Node archdescNode = doc.getElementsByTagName("archdesc").item(0);
-            System.out.println(".." + archdescNode.getNodeName());
+            //System.out.println(".." + archdescNode.getNodeName());
             for (int i = 0; i < archdescNode.getAttributes().getLength(); i++) {
                 Node archdescAttributeNode = archdescNode.getAttributes().item(i);
 
                 if (archdescAttributeNode.getNodeName().equals("level")) {
-                    System.out.println(".." + archdescNode.getNodeName() + " level: " + archdescAttributeNode.getChildNodes().item(0)
+                    ead2002Metadata.setArchiveDescription(archdescAttributeNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println(".." + archdescNode.getNodeName() + " level: " + ead2002Metadata.getArchiveDescription());
                 }
             }
 
             // *********************************************************************************************************
             //did element
             Node didNode = archdescNode.getChildNodes().item(1);
-            System.out.println(".." + didNode.getNodeName());
+            //System.out.println(".." + didNode.getNodeName());
 
             //did child nodes
             NodeList didNodeChildren = didNode.getChildNodes();
@@ -64,73 +68,85 @@ public class MetadataParser {
                 String didNodeName = didNodeChild.getNodeName();
 
                 if (didNodeName.equals("unittitle")) {
-                    System.out.println("....unittitle: " + didNodeChild.getChildNodes().item(0)
+                    ead2002Metadata.setUnitTitle(didNodeChild.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("....unittitle: " + ead2002Metadata.getUnitTitle());
                 }
 
                 if (didNodeName.equals("unitid")) {
-                    System.out.println("....unitid: " + didNodeChild.getChildNodes().item(0)
+                    ead2002Metadata.setUnitId(didNodeChild.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("....unitid: " + ead2002Metadata.getUnitId());
 
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
                         Node unitidNode = didNodeChild.getAttributes().item(j);
                         String unitidNodeName = unitidNode.getNodeName();
 
                         if (unitidNodeName.equals("countrycode")) {
-                            System.out.println("....unitid countrycode: " + unitidNode.getChildNodes().item(0)
+                            ead2002Metadata.setCountryCode(unitidNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....unitid countrycode: " + ead2002Metadata.getCountryCode());
                         }
 
                         if (unitidNodeName.equals("repositorycode")) {
-                            System.out.println("....unitid repositorycode: " + unitidNode.getChildNodes().item(0)
+                            ead2002Metadata.setRepositoryCode(unitidNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....unitid repositorycode: " + ead2002Metadata.getRepositoryCode());
                         }
                     }
                 }
 
                 if (didNodeName.equals("unitdate")) {
-                    System.out.println("....unitdate: " + didNodeChild.getChildNodes().item(0)
+                    ead2002Metadata.setUnitDate(didNodeChild.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("....unitdate: " + ead2002Metadata.getUnitDate());
 
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
                         Node unitdateNode = didNodeChild.getAttributes().item(j);
                         String unitdateNodeName = unitdateNode.getNodeName();
 
                         if (unitdateNodeName.equals("label")) {
-                            System.out.println("....unitdate label: " + unitdateNode.getChildNodes().item(0)
+                            ead2002Metadata.setUnitDateLabel(unitdateNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....unitdate label: " + ead2002Metadata.getUnitDateLabel());
                         }
 
                         if (unitdateNodeName.equals("normal")) {
-                            System.out.println("....unitdate normal: " + unitdateNode.getChildNodes().item(0)
+                            ead2002Metadata.setUnitDateNormal(unitdateNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....unitdate normal: " + ead2002Metadata.getUnitDateNormal());
                         }
                     }
                 }
+
                 if (didNodeName.equals("physdesc")) {
                     for (int j = 0; j < didNodeChild.getChildNodes().getLength(); j++) {
                         Node physdescNode = didNodeChild.getChildNodes().item(j);
                         String physdescNodeName = physdescNode.getNodeName();
 
                         if (physdescNodeName.equals("extent")) {
-                            System.out.println("....physdesc extent: " + physdescNode.getChildNodes().item(0)
+                            ead2002Metadata.setPhysicalDescriptionExtent(physdescNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....physdesc extent: " + ead2002Metadata.getPhysicalDescriptionExtent());
                         }
 
                         if (physdescNodeName.equals("dimensions")) {
-                            System.out.println("....physdesc dimensions: " + physdescNode.getChildNodes().item(0)
+                            ead2002Metadata.setPhysicalDescriptionDimensions(physdescNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....physdesc dimensions: " + ead2002Metadata.getPhysicalDescriptionDimensions());
                         }
 
                         if (physdescNodeName.equals("physfacet")) {
-                            System.out.println("....physdesc physfacet: " + physdescNode.getChildNodes().item(0)
+                            ead2002Metadata.setPhysicalDescriptionAppearance(physdescNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....physdesc physfacet: " + ead2002Metadata.getPhysicalDescriptionAppearance());
                         }
 
                         if (physdescNodeName.equals("#text")) {
                             String physdesc = physdescNode.getNodeValue().replaceAll("\\n", "").trim();
                             if (physdesc.length() > 0) {
-                                System.out.println("....physdesc: " + physdesc);
+                                ead2002Metadata.setPhysicalDescription(physdesc);
+                                //System.out.println("....physdesc: " + ead2002Metadata.getPhysicalDescription());
                             }
                         }
                     }
@@ -142,8 +158,9 @@ public class MetadataParser {
                         String repositoryNodeName = repositoryNode.getNodeName();
 
                         if (repositoryNodeName.equals("corpname")) {
-                            System.out.println("....repository corpname: " + repositoryNode.getChildNodes().item(0)
+                            ead2002Metadata.setRepositoryName(repositoryNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....repository corpname: " + ead2002Metadata.getRepositoryName());
                         }
                     }
                 }
@@ -154,14 +171,16 @@ public class MetadataParser {
                         String langmaterialNodeName = langmaterialNode.getNodeName();
 
                         if (langmaterialNodeName.equals("language")) {
-                            System.out.println("....langmaterial language: " + langmaterialNode.getChildNodes().item(0)
+                            ead2002Metadata.setLangMaterialLanguage(langmaterialNode.getChildNodes().item(0)
                                     .getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....langmaterial language: " + ead2002Metadata.getLangMaterialLanguage());
                         }
 
                         if (langmaterialNodeName.equals("#text")) {
                             String langmaterial = langmaterialNode.getNodeValue().replaceAll("\\n", "").trim();
                             if (langmaterial.length() > 0) {
-                                System.out.println("....langmaterial: " + langmaterial);
+                                ead2002Metadata.setLangMaterial(langmaterial);
+                                //System.out.println("....langmaterial: " + ead2002Metadata.getLangMaterial());
                             }
                         }
                     }
@@ -172,13 +191,15 @@ public class MetadataParser {
                         String noteAttributeNodeValue = noteAttributeNode.getNodeValue();
 
                         if (noteAttributeNodeValue.equals("sourcesDescription")) {
-                            System.out.println("....note sourcesDescription: " + didNodeChild.getChildNodes().item(1)
+                            ead2002Metadata.setNoteSourcesDescription(didNodeChild.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....note sourcesDescription: " + ead2002Metadata.getNoteSourcesDescription());
                         }
 
                         if (noteAttributeNodeValue.equals("generalNote")) {
-                            System.out.println("....note generalNote: " + didNodeChild.getChildNodes().item(1)
+                            ead2002Metadata.setNoteGeneralNote(didNodeChild.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....note generalNote: " + ead2002Metadata.getNoteGeneralNote());
                         }
                     }
                 }
@@ -186,7 +207,8 @@ public class MetadataParser {
                 if (didNodeName.equals("origination")) {
                     String origination = didNodeChild.getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim();
                     if (origination.length() > 0) {
-                        System.out.println("....origination: " + origination);
+                        ead2002Metadata.setOrigination(origination);
+                        //System.out.println("....origination: " + ead2002Metadata.getOrigination());
                     }
 
                     for (int j = 0; j < didNodeChild.getAttributes().getLength(); j++) {
@@ -194,20 +216,23 @@ public class MetadataParser {
                         String originationAttributeNodeName = originationAttributeNode.getNodeValue();
 
                         if (originationAttributeNodeName.equals("creator")) {
-                            System.out.println("....origination creator: " + didNodeChild.getChildNodes().item(1)
+                            ead2002Metadata.setOriginationCreator(didNodeChild.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....origination creator: " + ead2002Metadata.getOriginationCreator());
                         }
 
                         if (originationAttributeNodeName.equals("producer")) {
-                            System.out.println("....origination producer: " + didNodeChild.getChildNodes().item(1)
+                            ead2002Metadata.setOriginationProducer(didNodeChild.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("....origination producer: " + ead2002Metadata.getOriginationProducer());
                         }
                     }
                 }
 
                 if (didNodeName.equals("materialspec")) {
-                    System.out.println("....materialspec: " + didNodeChild.getChildNodes().item(0)
+                    ead2002Metadata.setMaterialSpecification(didNodeChild.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("....materialspec: " + ead2002Metadata.getMaterialSpecification());
                 }
             }
 
@@ -223,46 +248,54 @@ public class MetadataParser {
                         String oddAttributeNodeName = oddAttributeNode.getNodeValue();
 
                         if (oddAttributeNodeName.equals("levelOfDetail")) {
-                            System.out.println("..odd levelOfDetail: " + archdescChildNode.getChildNodes().item(1)
+                            ead2002Metadata.setOddLevelOfDetail(archdescChildNode.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("..odd levelOfDetail: " + ead2002Metadata.getOddLevelOfDetail());
                         }
 
                         if (oddAttributeNodeName.equals("statusDescription")) {
-                            System.out.println("..odd statusDescription: " + archdescChildNode.getChildNodes().item(1)
+                            ead2002Metadata.setOddStatusDescription(archdescChildNode.getChildNodes().item(1)
                                     .getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                            //System.out.println("..odd statusDescription: " + ead2002Metadata.getOddStatusDescription());
                         }
                     }
 
                 }
 
                 if (archdescChildNodeName.equals("scopecontent")) {
-                    System.out.println("..scopecontent: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setScopeContent(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..scopecontent: " + ead2002Metadata.getScopeContent());
                 }
 
                 if (archdescChildNodeName.equals("arrangement")) {
-                    System.out.println("..arrangement: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setArrangement(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..arrangement: " + ead2002Metadata.getArrangement());
                 }
 
                 if (archdescChildNodeName.equals("appraisal")) {
-                    System.out.println("..appraisal: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setAppraisal(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..appraisal: " + ead2002Metadata.getAppraisal());
                 }
 
                 if (archdescChildNodeName.equals("acqinfo")) {
-                    System.out.println("..acqinfo: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setAcquisitionInfo(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..acqinfo: " + ead2002Metadata.getAcquisitionInfo());
                 }
 
                 if (archdescChildNodeName.equals("accruals")) {
-                    System.out.println("..accruals: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setAccruals(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..accruals: " + ead2002Metadata.getAccruals());
                 }
 
                 if (archdescChildNodeName.equals("custodhist")) {
-                    System.out.println("..custodhist: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setCustodialHistory(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..custodhist: " + ead2002Metadata.getCustodialHistory());
                 }
 
                 if (archdescChildNodeName.equals("processinfo")) {
@@ -271,62 +304,75 @@ public class MetadataParser {
                         if (processinfoNode.getChildNodes().getLength() > 0) {
                             if ((processinfoNode.getChildNodes().item(0) != null) &&
                                     processinfoNode.getChildNodes().item(0).getNodeName().equals("date")) {
-                                System.out.println("..processinfo date: " + processinfoNode.getChildNodes().item(0).getChildNodes().item(0)
+                                ead2002Metadata.setProcessInfoDate(processinfoNode.getChildNodes().item(0).getChildNodes().item(0)
                                         .getNodeValue().replaceAll("\\n", "").trim());
+                                //System.out.println("..processinfo date: " + ead2002Metadata.getProcessInfoDate());
                             } else if ((processinfoNode.getChildNodes().item(1) != null) &&
                                     processinfoNode.getChildNodes().item(1).getNodeName().equals("date")) {
-                                System.out.println("..processinfo date: " + processinfoNode.getChildNodes().item(1).getChildNodes().item(0)
+                                ead2002Metadata.setProcessInfoDate(processinfoNode.getChildNodes().item(1).getChildNodes().item(0)
                                         .getNodeValue().replaceAll("\\n", "").trim());
+                                //System.out.println("..processinfo date: " + ead2002Metadata.getProcessInfoDate());
                             } else {
-                                System.out.println("..processinfo archivist notes: " + processinfoNode.getChildNodes().item(0).getNodeValue().replaceAll("\\n", "").trim());
+                                ead2002Metadata.setProcessInfoArchivistNotes(processinfoNode.getChildNodes().item(0)
+                                        .getNodeValue().replaceAll("\\n", "").trim());
+                                //System.out.println("..processinfo archivist notes: " + ead2002Metadata.getProcessInfoArchivistNotes());
                             }
                         }
                     }
                 }
 
                 if (archdescChildNodeName.equals("originalsloc")) {
-                    System.out.println("..originalsloc: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setOriginalsLocation(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..originalsloc: " + ead2002Metadata.getOriginalsLocation());
                 }
 
                 if (archdescChildNodeName.equals("altformavail")) {
-                    System.out.println("..altformavail: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setAlternativeFormAvailable(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..altformavail: " + ead2002Metadata.getAlternativeFormAvailable());
                 }
 
                 if (archdescChildNodeName.equals("relatedmaterial")) {
-                    System.out.println("..relatedmaterial: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setRelatedMaterial(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..relatedmaterial: " + ead2002Metadata.getRelatedMaterial());
                 }
 
                 if (archdescChildNodeName.equals("accessrestrict")) {
-                    System.out.println("..accessrestrict: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setAccessRestrictions(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..accessrestrict: " + ead2002Metadata.getAccessRestrictions());
                 }
 
                 if (archdescChildNodeName.equals("userestrict")) {
-                    System.out.println("..userestrict: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setUseRestrictions(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..userestrict: " + ead2002Metadata.getUseRestrictions());
                 }
 
                 if (archdescChildNodeName.equals("otherfindaid")) {
-                    System.out.println("..otherfindaid: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setOtherFindAid(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..otherfindaid: " + ead2002Metadata.getOtherFindAid());
                 }
 
                 if (archdescChildNodeName.equals("phystech")) {
-                    System.out.println("..phystech: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setPhysicalTech(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..phystech: " + ead2002Metadata.getPhysicalTech());
                 }
 
                 if (archdescChildNodeName.equals("bibliography")) {
-                    System.out.println("..bibliography: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setBibliography(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..bibliography: " + ead2002Metadata.getBibliography());
                 }
 
                 if (archdescChildNodeName.equals("prefercite")) {
-                    System.out.println("..prefercite: " + archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
+                    ead2002Metadata.setPreferCite(archdescChildNode.getChildNodes().item(1).getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..prefercite: " + ead2002Metadata.getPreferCite());
                 }
             }
 
@@ -337,13 +383,22 @@ public class MetadataParser {
         } catch (SAXException e) {
             e.printStackTrace();
         }
+
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println(ead2002Metadata.toString());
+        System.out.println("---------------------------------------------------------------------------------------");
+
+        return ead2002Metadata;
     }
 
     /**
      * Method responsible for parsing an XML metadata file in the Dublin Core Simple 2002-12-12 format.
      * @param file The filename of the file to be parsed.
      */
-    public void parseDublinCoreSimple20021212(File file) {
+    public DublinCore20021212Metadata parseDublinCoreSimple20021212(File file) {
+
+        DublinCore20021212Metadata dublinCore20021212Metadata = new DublinCore20021212Metadata();
+
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -351,98 +406,116 @@ public class MetadataParser {
             doc.getDocumentElement().normalize();
 
             String rootElement = doc.getDocumentElement().getNodeName();
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("Dublin Core Simple 2002-12-12 Parser");
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("Root element: " + rootElement);
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println("Dublin Core Simple 2002-12-12 Parser");
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println("Root element: " + rootElement);
 
             // *********************************************************************************************************
             //simpledc root element
-            System.out.println(rootElement);
+            //System.out.println(rootElement);
 
             for (int i = 0; i < doc.getDocumentElement().getChildNodes().getLength(); i++) {
                 Node simpledcNode = doc.getDocumentElement().getChildNodes().item(i);
                 String nodeName = simpledcNode.getNodeName();
 
                 if (nodeName.equals("title")) {
-                    System.out.println("..title: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setTitle(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..title: " + dublinCore20021212Metadata.getTitle());
                 }
 
                 if (nodeName.equals("identifier")) {
-                    System.out.println("..identifier: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setIdentifier(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..identifier: " + dublinCore20021212Metadata.getIdentifier());
                 }
 
                 if (nodeName.equals("creator")) {
-                    System.out.println("..creator: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setCreator(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..creator: " + dublinCore20021212Metadata.getCreator());
                 }
 
                 if (nodeName.equals("date")) {
-                    System.out.println("..date: " + simpledcNode.getChildNodes().item(0)
-                            .getNodeValue().replaceAll("\\n", "").trim());
+                    if (dublinCore20021212Metadata.getInitialDate().equals("")) {
+                        dublinCore20021212Metadata.setInitialDate(simpledcNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..initial date: " + dublinCore20021212Metadata.getInitialDate());
+                    } else {
+                        dublinCore20021212Metadata.setFinalDate(simpledcNode.getChildNodes().item(0)
+                                .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..final date: " + dublinCore20021212Metadata.getFinalDate());
+                    }
                 }
 
                 if (nodeName.equals("description")) {
-                    System.out.println("..description: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setDescription(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..description: " + dublinCore20021212Metadata.getDescription());
                 }
 
                 if (nodeName.equals("publisher")) {
-                    System.out.println("..publisher: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setPublisher(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..publisher: " + dublinCore20021212Metadata.getPublisher());
                 }
 
                 if (nodeName.equals("contributor")) {
-                    System.out.println("..contributor: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setContributor(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..contributor: " + dublinCore20021212Metadata.getContributor());
                 }
 
                 if (nodeName.equals("rights")) {
-                    System.out.println("..rights: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setRights(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..rights: " + dublinCore20021212Metadata.getRights());
                 }
 
                 if (nodeName.equals("language")) {
-                    System.out.println("..language: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setLanguage(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..language: " + dublinCore20021212Metadata.getLanguage());
                 }
 
                 if (nodeName.equals("coverage")) {
-                    System.out.println("..coverage: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setCoverage(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..coverage: " + dublinCore20021212Metadata.getCoverage());
                 }
 
                 if (nodeName.equals("format")) {
-                    System.out.println("..format: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setFormat(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..format: " + dublinCore20021212Metadata.getFormat());
                 }
 
                 if (nodeName.equals("relation")) {
-                    System.out.println("..relation: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setRelation(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..relation: " + dublinCore20021212Metadata.getRelation());
                 }
 
                 if (nodeName.equals("subject")) {
-                    System.out.println("..subject: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setSubject(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..subject: " + dublinCore20021212Metadata.getSubject());
                 }
 
                 if (nodeName.equals("type")) {
-                    System.out.println("..type: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setType(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..type: " + dublinCore20021212Metadata.getType());
                 }
 
                 if (nodeName.equals("source")) {
-                    System.out.println("..source: " + simpledcNode.getChildNodes().item(0)
+                    dublinCore20021212Metadata.setSource(simpledcNode.getChildNodes().item(0)
                             .getNodeValue().replaceAll("\\n", "").trim());
+                    //System.out.println("..source: " + dublinCore20021212Metadata.getSource());
                 }
             }
 
-
-        } catch (NullPointerException e) {
-            System.out.println("XML file '" + file.getName() + "' not found.");
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -450,13 +523,22 @@ public class MetadataParser {
         } catch (SAXException e) {
             e.printStackTrace();
         }
+
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println(dublinCore20021212Metadata.toString());
+        System.out.println("---------------------------------------------------------------------------------------");
+
+        return dublinCore20021212Metadata;
     }
 
     /**
      * Method responsible for parsing an XML metadata file in the Key-value format.
      * @param file The filename of the file to be parsed.
      */
-    public void parseKeyValue(File file) {
+    public KeyValueMetadata parseKeyValue(File file) {
+
+        KeyValueMetadata keyValueMetadata = new KeyValueMetadata();
+
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -464,14 +546,14 @@ public class MetadataParser {
             doc.getDocumentElement().normalize();
 
             String rootElement = doc.getDocumentElement().getNodeName();
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("Key-value Parser");
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("Root element: " + rootElement);
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println("Key-value Parser");
+            //System.out.println("---------------------------------------------------------------------------------------");
+            //System.out.println("Root element: " + rootElement);
 
             // *********************************************************************************************************
             //metadata root element
-            System.out.println(rootElement);
+            //System.out.println(rootElement);
 
             for (int i = 0; i < doc.getDocumentElement().getChildNodes().getLength(); i++) {
                 Node metadataNode = doc.getDocumentElement().getChildNodes().item(i);
@@ -481,30 +563,31 @@ public class MetadataParser {
                     String attributeName = metadataNode.getAttributes().item(0).getNodeValue();
 
                     if (attributeName.equals("id")) {
-                        System.out.println("..field id: " + metadataNode.getChildNodes().item(0)
+                        keyValueMetadata.setId(metadataNode.getChildNodes().item(0)
                                 .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..field id: " + keyValueMetadata.getId());
                     }
 
                     if (attributeName.equals("title")) {
-                        System.out.println("..field title: " + metadataNode.getChildNodes().item(0)
+                        keyValueMetadata.setTitle(metadataNode.getChildNodes().item(0)
                                 .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..field title: " + keyValueMetadata.getTitle());
                     }
 
                     if (attributeName.equals("producer")) {
-                        System.out.println("..field producer: " + metadataNode.getChildNodes().item(0)
+                        keyValueMetadata.setProducer(metadataNode.getChildNodes().item(0)
                                 .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..field producer: " + keyValueMetadata.getProducer());
                     }
 
                     if (attributeName.equals("date")) {
-                        System.out.println("..field date: " + metadataNode.getChildNodes().item(0)
+                        keyValueMetadata.setDate(metadataNode.getChildNodes().item(0)
                                 .getNodeValue().replaceAll("\\n", "").trim());
+                        //System.out.println("..field date: " + keyValueMetadata.getDate());
                     }
                 }
-
             }
 
-        } catch (NullPointerException e) {
-            System.out.println("XML file '" + file.getName() + "' not found.");
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -512,6 +595,12 @@ public class MetadataParser {
         } catch (SAXException e) {
             e.printStackTrace();
         }
+
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println(keyValueMetadata.toString());
+        System.out.println("---------------------------------------------------------------------------------------");
+
+        return keyValueMetadata;
     }
 
 }
