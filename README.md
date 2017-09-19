@@ -9,13 +9,16 @@ supported by [RODA Repository](https://demo.roda-community.org/).
 ##### Dependencies #####
 
 This project is a [maven project](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html). 
-Any IDE supporting maven projects should automatically recognise and download the dependencies needed to run the application.
+Any IDE supporting maven projects should automatically recognise and download the dependencies needed to run the 
+application.
+
 
 ##### Test Files #####
 
-An example of each XML descriptive metadata format supported by RODA is located inside the ```/src/main/resources/``` folder.
-The ```dc_SimpleDC20021212.xml``` file contains metadata in the Dublin Core 2002-12-12 format, the ```ead2002.xml``` file in the 
-EAD 2002 and the ```key-value.xml``` file in the Key-value format.
+An example of each XML descriptive metadata format supported by RODA is located inside the ```/src/main/resources/``` 
+folder. The ```dc_SimpleDC20021212.xml``` file contains metadata in the Dublin Core 2002-12-12 format, the 
+```ead2002.xml``` file in the EAD 2002 and the ```key-value.xml``` file in the Key-value format.
+
 
 ##### Log4J Logs Folder Configuration #####
 
@@ -25,7 +28,6 @@ This is the folder where the application's logs will be written to.
 
 
 ##### Running the project in IntelliJ #####
-
 
 1. Open the project in [IntelliJ](https://www.jetbrains.com/idea/).
 2. Navigate to the class ```/src/main/java/com.example/Main.java``` in the project file browser.
@@ -38,11 +40,12 @@ This is the folder where the application's logs will be written to.
 **André Rosa**
 
 * <https://bitbucket.org/candrelsrosa>
+* <https://github.com/andreros/>
 * <https://facebook.com/candrelsrosa>
 * <https://twitter.com/candrelsrosa>
 
 
-
 ## License
 
-Code released under [the GPL 3.0 license](https://opensource.org/licenses/GPL-3.0). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/4.0/legalcode).
+Code released under [the GPL 3.0 license](https://opensource.org/licenses/GPL-3.0). Docs released under 
+[Creative Commons](https://creativecommons.org/licenses/by/4.0/legalcode).
